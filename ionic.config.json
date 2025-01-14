@@ -1,0 +1,7 @@
+{
+  "name": "mascotin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

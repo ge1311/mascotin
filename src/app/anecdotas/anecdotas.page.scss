@@ -1,0 +1,83 @@
+/* Fondo degradado */
+#main-content {
+  --background: linear-gradient(135deg, #A16CDC, #D3A8F7); 
+}
+
+/* Título centrado */
+.center-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 30px;
+  color: #333;
+}
+
+/* Diseño de la tarjeta */
+mat-card {
+  margin: 15px;
+  border-radius: 15px; 
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; 
+}
+
+
+mat-card-header {
+  background: #f2f2f2;
+  border-top-left-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* perfil circular */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Círculo */
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+/* Títulos dentro de la tarjeta */
+mat-card-title {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+mat-card-content {
+  font-size: 16px;
+  color: #333;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-button {
+  font-weight: bold;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  max-width: 450px;
+}

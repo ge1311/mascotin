@@ -1,0 +1,105 @@
+<ion-menu content-id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/iniciosesion">
+        <ion-label>Iniciar Sesión</ion-label>
+      </ion-item>
+      <ion-item routerLink="/categorias">
+        <ion-label>Categorías</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button (click)="openMenu()"></ion-menu-button>
+    </ion-buttons>
+    
+    <div class="logo-container">
+      <img src="assets/logo2.png" alt="Logo" class="logo" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content">
+  <div class="center-title">
+    <h1>Explora salud y cuidados </h1>
+  </div>
+
+  <!-- Tarjeta con avatar circular -->
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <!-- Imagen en círculo -->
+      <div mat-card-avatar class="avatar">
+        <img src="assets/avatarp.jpg" alt="User Avatar" />
+      </div>
+      <mat-card-title>usuario123</mat-card-title>
+      <mat-card-subtitle>Vacunas</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="assets/salud1.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Malvavisco con sus vacunas al dia, recordar gente que se deben vacunar todos los años a sus peludos.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Me gusta</button>
+      <button mat-button>Comentar</button>
+    </mat-card-actions>
+  </mat-card>
+<!-- Tarjeta 2-->
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        <img src="assets/avatar3.jpg" alt="User Avatar" />
+      </div>
+      <mat-card-title>Maria77</mat-card-title>
+      <mat-card-subtitle>Cepillo a vapor</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="assets/salud2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Mirad cómo quedó mi gatita después de la operación, le puse esta camisita para que no se rasque ni toque la zona.
+        Parece una pequeña enfermera, pero sé que esto la va a ayudar a mantenerse cómoda y a no estresarse.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Me gusta</button>
+      <button mat-button>Comentar</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Tarjeta 3-->
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+    
+      <div mat-card-avatar class="avatar">
+        <img src="assets/avatar2.jpg" alt="User Avatar" />
+      </div>
+      <mat-card-title>Esteb4nZ</mat-card-title>
+      <mat-card-subtitle>Shampoo </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="assets/salud3.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Recuerda, no bañes a tu perro todos los días. El baño frecuente puede eliminar los aceites naturales de su piel,
+         lo que podría causar irritaciones. Lo ideal es bañarlos cada 3-4 semanas, o según lo necesiten.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Me gusta</button>
+      <button mat-button>Comentar</button>
+    </mat-card-actions>
+  </mat-card>
+</ion-content>
+

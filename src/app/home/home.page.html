@@ -1,0 +1,42 @@
+<ion-menu content-id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/iniciosesion">
+        <ion-label>Iniciar Sesión</ion-label>
+      </ion-item>
+      <ion-item routerLink="/categorias">
+        <ion-label>Categorías</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button (click)="openMenu()"></ion-menu-button>
+    </ion-buttons>
+    
+    <div class="logo-container">
+      <img src="assets/logo2.png" alt="Logo" class="logo" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" class="ion-padding">
+  <div class="welcome">
+    <h1>¡BIENVENIDO A MASCOTIN!</h1>
+    <p>Donde las mascotas brillan</p>
+  </div>
+
+  <ion-img src="assets/homeP.webp" class="central-img"></ion-img>
+
+  <div class="footer-text">
+    <p>Un lugar donde podrás encontrar todo sobre tus mascotas, desde salud hasta anécdotas y reseñas de productos para tu peludo.</p>
+  </div>
+</ion-content>

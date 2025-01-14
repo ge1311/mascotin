@@ -1,0 +1,88 @@
+<ion-menu content-id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-toggle></ion-menu-toggle>
+      </ion-buttons>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/iniciosesion">
+        <ion-label>Iniciar Sesión</ion-label>
+      </ion-item>
+      <ion-item routerLink="/categorias">
+        <ion-label>Categorías</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> 
+    </ion-buttons>
+    <div class="logo-container">
+      <img src="assets/logo2.png" alt="Logo" class="logo" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content"> 
+  <h1 class="center-title">Explora las categorías</h1>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Salud y cuidados</ion-card-title>
+    </ion-card-header>
+  
+    <ion-img [src]="'assets/veterinaria.png'" alt="imagenP"></ion-img>
+  
+    <ion-card-content>
+      Aquí encontrarás contenidos sobre salud y cuidados para tu mascota!
+    </ion-card-content>
+    <ion-button expand="block" routerLink="/salud" >
+      Foro de salud
+    </ion-button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Reseñas de productos
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-img [src]="'assets/reseñap.webp'" alt="reseñaP"></ion-img> 
+
+    <ion-card-content>
+      Aquí encontrarás reseñas de productos para tu mascota.
+    </ion-card-content>
+    <ion-button expand="block" routerLink="/resenas" >
+      Foro de reseñas
+    </ion-button>
+  </ion-card>
+  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Anecdotas de mascotines
+      </ion-card-title>
+      <ion-button slot="end" fill="clear">
+        <ion-icon name="heart"></ion-icon>
+      </ion-button>
+    </ion-card-header>
+
+    <ion-img [src]="'assets/anecdotas.jpg'" alt="anecdotes"></ion-img> 
+
+    <ion-card-content>
+      Aquí podrás encontrar anécdotas de mascotines de diferentes tipos y lugares.
+    </ion-card-content>
+    <ion-button expand="block" routerLink="/anecdotas">
+      Foro de anécdotas
+     </ion-button>
+  </ion-card>
+</ion-content>
