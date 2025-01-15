@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: 'resenas', loadChildren: () => import('./resenas/resenas.module').then(m => m.ResenasPageModule) },
   { path: 'salud', loadChildren: () => import('./salud/salud.module').then(m => m.SaludPageModule) },
   { path: 'anecdotas', loadChildren: () => import('./anecdotas/anecdotas.module').then(m => m.AnecdotasPageModule) },
+  {path: 'perfilusuario',loadChildren: () => import('./perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule)},
+  {path: 'admin', loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)},
 
 ];
 
