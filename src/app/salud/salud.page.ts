@@ -19,4 +19,7 @@ export class SaludPage implements OnInit {
     this.menu.open();
   }
 
-}
+  toggleMenu() { 
+    this.menu.toggle();
+
+}}

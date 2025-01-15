@@ -16,7 +16,7 @@ import { CategoriasPage } from './categorias.page';
     FormsModule,
     IonicModule,
     CategoriasPageRoutingModule, 
-    MatIconModule,    // Ya lo tienes
+    MatIconModule, 
     MatCardModule, 
   ],
   declarations: [CategoriasPage],  
