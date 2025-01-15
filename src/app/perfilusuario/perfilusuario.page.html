@@ -16,3 +16,33 @@
   </ion-content>
 </ion-menu>
 
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil de Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="perfil-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Información del Usuario</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Nombre de Usuario:</ion-label>
+          <ion-text>{{ userData.username }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Correo Electrónico:</ion-label>
+          <ion-text>{{ userData.email }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Teléfono:</ion-label>
+          <ion-text>{{ userData.phone }}</ion-text>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

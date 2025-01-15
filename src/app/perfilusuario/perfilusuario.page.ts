@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   standalone:false
 })
 export class PerfilusuarioPage implements OnInit {
+ 
+  userData = {
+    username: 'UsuarioDemo', 
+    email: 'usuario@ejemplo.com', 
+    phone: '123-456-7890', 
+  };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

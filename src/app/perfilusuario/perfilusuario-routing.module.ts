@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { PerfilusuarioPage } from './perfilusuario.page';
+import { RouterModule, Routes } from '@angular/router';
+import { PerfilusuarioPage } from './perfilusuario.page'; // Importación correcta
 
 const routes: Routes = [
   {
     path: '',
-    component: PerfilusuarioPage
-  }
+    component: PerfilusuarioPage, // Uso correcto de la clase
+  },
 ];
 
 @NgModule({

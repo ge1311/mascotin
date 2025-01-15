@@ -41,11 +41,12 @@
     width: 90%;
     max-width: 400px;
     margin: 0 auto;
+   
   }
 
   ion-item.input-item {
     --background: #fff;
-    --border-radius: 10px;
+    border-radius: 10px;
     margin-bottom: 15px;
   }
 
