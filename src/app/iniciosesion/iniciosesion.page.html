@@ -38,17 +38,12 @@
       <ion-item>
         <ion-label position="stacked">Ingrese usuario:</ion-label>
         <ion-input formControlName="usuario" type="text"></ion-input>
-        <div *ngIf="loginForm.get('usuario')?.invalid && (loginForm.get('usuario')?.dirty || loginForm.get('usuario')?.touched)">
-          <p class="error-message">El usuario es requerido y debe tener al menos 3 caracteres</p>
-        </div>
       </ion-item>
   
       <ion-item class="input-item">
         <ion-label position="stacked">Ingrese contraseña:</ion-label>
       <ion-input formControlName="contrasena" type="password"></ion-input>
-      <div *ngIf="loginForm.get('contrasena')?.invalid && (loginForm.get('contrasena')?.dirty || loginForm.get('contrasena')?.touched)">
-        <p class="error-message">La contraseña es requerida y debe tener al menos 6 caracteres</p>
-      </div>
+      
     </ion-item>
   
       <ion-button expand="block" class="login-button" type="submit">Ingresar</ion-button>
@@ -57,5 +52,6 @@
         ¿No tienes cuenta? <a routerLink="/registro">Regístrate</a>
       </p>
     </form>
+
   </div>
 </ion-content>

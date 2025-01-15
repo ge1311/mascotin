@@ -36,17 +36,5 @@ export class RegistroPage implements OnInit {
   }
 
   onRegistro() {
-    if (this.registroForm.valid) {
-      console.log('Formulario válido', this.registroForm.value);
-      alert('Registro exitoso!');
-      this.router.navigate(['/home']); // devuelve al home
-    } else {
-      let mensaje = 'Por favor, complete los siguientes campos correctamente:\n';
-      Object.keys(this.registroForm.controls).forEach((campo) => {
-        if (this.registroForm.get(campo)?.invalid) {
-          mensaje += `- ${campo}\n`;
-        }
-      });
-      alert(mensaje);
-    }
+  
   }}
