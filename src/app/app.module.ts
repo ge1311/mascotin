@@ -8,6 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 
 
@@ -15,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync(),SQLite],
   bootstrap: [AppComponent],
 })
 

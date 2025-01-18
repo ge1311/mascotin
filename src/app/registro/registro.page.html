@@ -22,7 +22,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button (click)="openMenu()"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     
     <div class="logo-container">
@@ -35,35 +35,68 @@
   <h1 class="center-title">Regístrate</h1>
   <div class="form-container">
 
+   
 
-    <form [formGroup]="registroForm" (ngSubmit)="onRegistro()">
+    <form [formGroup]="registerForm" (ngSubmit)="registrar()" autocomplete="off">
+      <!-- Campo de Nombre de Usuario -->
       <ion-item>
-        <ion-label position="floating">Ingrese nombre de usuario:</ion-label>
-        <ion-input formControlName="usuario" type="text"></ion-input>
+        <ion-label for="usuario-input" position="floating">Nombre de usuario</ion-label>
+        <ion-input id="usuario-input" formControlName="usuario" type="text"></ion-input>
       </ion-item>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('usuario')?.errors?.['required']">
+        El nombre de usuario es obligatorio.
+      </div>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('usuario')?.errors?.['pattern']">
+        Solo se permiten letras y números.
+      </div>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('usuario')?.errors?.['minlength']">
+        Debe tener al menos 3 caracteres.
+      </div>
     
-
+      <!-- Campo de Correo -->
       <ion-item>
-        <ion-label position="floating">Correo electrónico:</ion-label>
-        <ion-input formControlName="email" type="email"></ion-input>
+        <ion-label for="correo-label" position="floating">Correo electrónico</ion-label>
+        <ion-input id="correo-input" formControlName="correo" type="email"></ion-input>
       </ion-item>
-  
-
+      <div class="error" *ngIf="formSubmitted && registerForm.get('correo')?.errors?.['required']">
+        El correo es obligatorio.
+      </div>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('correo')?.errors?.['pattern']">
+        Debe ser un correo válido (example&#64;correo.com).
+      </div>
+    
+      <!-- Campo de Contraseña -->
       <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input formControlName="contrasena" type="password"></ion-input>
+        <ion-label for="clave-label" position="floating">Contraseña</ion-label>
+        <ion-input id="clave-input" formControlName="clave" type="password" autocomplete="off"></ion-input>
       </ion-item>
-
+      <div class="error" *ngIf="formSubmitted && registerForm.get('clave')?.errors?.['required']">
+        La contraseña es obligatoria.
+      </div>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('clave')?.errors?.['minlength']">
+        La contraseña debe tener al menos 6 caracteres.
+      </div>
+    
+      <!-- Campo de Confirmar Contraseña -->
       <ion-item>
-        <ion-label position="floating">Confirmar Contraseña</ion-label>
-        <ion-input formControlName="contrasena" type="password"></ion-input>
+        <ion-label for="repetirClave-label" position="floating">Confirmar Contraseña</ion-label>
+        <ion-input id="repetirClave-input" formControlName="repetirClave" type="password" autocomplete="off"></ion-input>
       </ion-item>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('repetirClave')?.errors?.['required']">
+        Debe repetir la contraseña.
+      </div>
+      <div class="error" *ngIf="formSubmitted && registerForm.get('repetirClave')?.errors?.['mismatch']">
+        Las contraseñas no coinciden.
+      </div>
+    
+      <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">
+        Registrarse
+      </ion-button>
     </form>
-  </div>
-
-  <div>
-    <ion-button expand="block" class="register-button" (click)="onRegistro()"> 
-      Registrarse
-    </ion-button>
-  </div>
-</ion-content>
+    
+    
+    
+    
+    
+    
+    
