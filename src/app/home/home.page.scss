@@ -70,3 +70,21 @@ ion-content {
   font-size: 18px;
   color: #ffffff; /* Ajusta según el diseño */
 }
+
+.admin-link {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.admin-link-text {
+  font-size: 18px;
+  color: #7216DB; /* Puedes cambiar el color */
+  text-decoration: none;
+}
+
+.admin-link-text:hover {
+  text-decoration: underline;
+}

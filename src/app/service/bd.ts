@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CapacitorSQLite, SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { AlertController, Platform } from '@ionic/angular';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';  // Asegúrate de que SQLite esté instalado
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BDService {
-  private db!: SQLiteDBConnection;
+  public database!: SQLiteObject;
 
-  // Definición de tablas
+  // Definir la tabla de usuario
   private tablaUsuario: string = `CREATE TABLE IF NOT EXISTS usuario (
     idusuario INTEGER PRIMARY KEY AUTOINCREMENT,
     correo VARCHAR(50) NOT NULL,
@@ -17,81 +17,62 @@ export class BDService {
   );`;
 
   constructor(
-    private platform: Platform,
-    private alertController: AlertController
+    private sqlite: SQLite,
+    private platform: Platform
   ) {
     this.platform.ready().then(() => {
       this.inicializarBD();
     });
   }
 
+  // Inicializar la base de datos
   private async inicializarBD() {
     try {
-      // Crear conexión con la base de datos
-      this.db = await CapacitorSQLite.createConnection({
-        database: 'mascotin',
-        version: 1,
-        encrypted: false,
-        mode: 'no-encryption'
+      this.database = await this.sqlite.create({
+        name: 'mascotin.db',
+        location: 'default'
       });
-    
-      // Abrir la base de datos
-      await this.db.open();
       await this.crearTablas();
       console.log('Base de datos inicializada correctamente.');
     } catch (error) {
-      this.mostrarAlerta('Error', 'No se pudo inicializar la base de datos: ' + error);
+      console.log('Error al inicializar la base de datos: ', error);
     }
   }
 
+  // Crear las tablas en la base de datos
   private async crearTablas() {
     try {
-      await this.db.execute(this.tablaUsuario);
+      await this.database.executeSql(this.tablaUsuario, []);
       console.log('Tablas creadas correctamente.');
     } catch (error) {
-      this.mostrarAlerta('Error', 'No se pudieron crear las tablas: ' + error);
+      console.log('Error al crear las tablas: ', error);
     }
   }
 
-  public async insertarUsuario(correo: string, clave: string, foto?: Blob) {
+  // Insertar un usuario
+  insertarUsuario(correo: string, clave: string, foto?: Blob) {
     const query = `INSERT INTO usuario (correo, clave, foto) VALUES (?, ?, ?)`;
     const values = [correo, clave, foto || null];
 
-    try {
-      await this.db.run(query, values);
-      console.log('Usuario insertado correctamente.');
-    } catch (error) {
-      this.mostrarAlerta('Error', 'No se pudo insertar el usuario: ' + error);
-    }
-  }
-
-  public async obtenerUsuarios() {
-    const query = `SELECT * FROM usuario`;
-
-    try {
-      const result = await this.db.query(query);
-      return result.values ? result.values : [];
-    } catch (error) {
-      this.mostrarAlerta('Error', 'No se pudieron obtener los usuarios: ' + error);
-      return [];
-    }
-  }
-
-  private async mostrarAlerta(titulo: string, mensaje: string) {
-    const alerta = await this.alertController.create({
-      header: titulo,
-      message: mensaje,
-      buttons: ['OK']
+    return this.database.executeSql(query, values).then(() => {
+      console.log('Usuario insertado correctamente en la base de datos.');
+    }).catch((error) => {
+      console.log('Error al insertar el usuario en la base de datos: ', error);
     });
-    await alerta.present();
   }
 
-  public async cerrarConexion() {
-    try {
-      await this.db.close();
-      console.log('Conexión a la base de datos cerrada.');
-    } catch (error) {
-      this.mostrarAlerta('Error', 'No se pudo cerrar la conexión a la base de datos: ' + error);
-    }
+  // Obtener todos los usuarios
+  obtenerUsuarios() {
+    const query = `SELECT * FROM usuario`;
+    return this.database.executeSql(query, []).then((data) => {
+      const usuarios = [];
+      for (let i = 0; i < data.rows.length; i++) {
+        usuarios.push(data.rows.item(i));  // Guardamos cada usuario
+      }
+      return usuarios;  // Retorna el array de usuarios
+    }).catch((error) => {
+      console.log('Error al obtener los usuarios: ', error);
+      return [];
+    });
   }
 }
