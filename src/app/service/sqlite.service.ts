@@ -29,7 +29,7 @@ export class SqliteService {
     this.dbReady = new BehaviorSubject(false);
     this.isWeb = false;
     this.isIOS = false;
-    this.dbName = '';
+    this.dbName = 'languages.db';
   }
 
   async init() {
@@ -66,7 +66,7 @@ export class SqliteService {
 
     // Sino la hemos creado, descargamos y creamos la base de datos
     if (!dbSetup.value) {
-      this.downloadDatabase();
+      this.createDatabase();
     } else {
       // Nos volvemos a conectar
       console.log("SqliteService not downloadDatabase");
@@ -74,6 +74,32 @@ export class SqliteService {
       await CapacitorSQLite.createConnection({ database: this.dbName });
       await CapacitorSQLite.open({ database: this.dbName })
       this.dbReady.next(true);
+    }
+  }
+
+  async createDatabase() {
+      console.error("createDatabase")
+      try {
+        await CapacitorSQLite.createConnection({database: this.dbName});
+        await CapacitorSQLite.open({ database: this.dbName });
+        await Preferences.set({ key: 'first_setup_key', value: '1' })
+        await Preferences.set({ key: 'dbname', value: this.dbName })
+        this.dbReady.next(true);  
+        console.log('Base de datos mascotín creada y lista.');
+      } catch (error) {
+        console.error('Error al crear la base de datos:', error);
+      }
+
+    try {
+          const createTableQuery = `CREATE TABLE IF NOT EXISTS languages (
+                              name TEXT NOT NULL PRIMARY KEY);`;
+          await CapacitorSQLite.execute({
+            database: this.dbName,
+            statements: createTableQuery
+          });
+          console.log('Tabla languages lista.');  
+    } catch (error) {
+      console.error('Error al crear la tabla:', error);
     }
   }
 
