@@ -51,5 +51,37 @@
   <div class="admin-link">
     <a routerLink="/admin" class="admin-link-text">Admin</a>
   </div>
+
+   <!-- Formulario para añadir un elemento -->
+   <ion-item>
+    <ion-input label="Lenguaje de programacion: " [(ngModel)]="language" name="language"></ion-input>
+    <ion-button (click)="create()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <!-- Lista de todos los elementos -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let language of languages">
+
+      <!-- elemento -->
+      <ion-item>
+        <ion-label>{{language}}</ion-label>
+      </ion-item>
+
+      <!-- opciones -->
+      <ion-item-options>
+        <ion-item-option color="warning" (click)="update(language)">
+          <ion-icon name="pencil-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="delete(language)">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      
+    </ion-item-sliding>
+
+
+  </ion-list>
   
 </ion-content>

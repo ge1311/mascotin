@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BDService } from '../service/bd';  // Asegúrate de importar el servicio desde la ruta correcta
+import { BDService } from '../service/bd'; // Asegúrate de importar el servicio desde la ruta correcta
 
 @Component({
   selector: 'app-admin',
@@ -18,10 +18,10 @@ export class AdminPage implements OnInit {
   }
 
   cargarUsuarios() {
-    this.bdService.obtenerUsuarios().then((usuarios: any[]) => {
-      this.usuarios = usuarios;  // Guardamos los usuarios obtenidos
-    }).catch((error: Error) => {
-      console.log('Error al cargar los usuarios:', error);
-    });
+    // this.bdService.obtenerUsuarios().then((usuarios: any[]) => {
+    //   this.usuarios = usuarios;  // Guardamos los usuarios obtenidos
+    // }).catch((error: Error) => {
+    //   console.log('Error al cargar los usuarios:', error);
+    // });
   }
 }

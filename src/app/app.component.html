@@ -35,5 +35,6 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-router-outlet id="main-content" *ngIf = "load"></ion-router-outlet>
+  <jeep-sqlite *ngIf="isWeb"></jeep-sqlite>
 </ion-app>
