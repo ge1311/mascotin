@@ -68,3 +68,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+/android/app/src/main/res
+/android
+/android
+/android/app
