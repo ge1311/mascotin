@@ -18,10 +18,19 @@ export class HomePage implements OnInit {
   ) {
     this.language = '';
     this.languages = [];
+    console.log("HomePage constructor");
   }
 
   ionViewWillEnter(){
-    this.read();
+    console.log("HomePage ionViewWillEnter");
+    this.sqlite.dbReady.subscribe(ready => {
+      if (ready) {
+        this.read();
+      } else {
+        console.log("Base de datos aún no está lista");
+      }
+    });
+    
   }
   create(){
     // Creamos un elemento en la base de datos
@@ -37,10 +46,11 @@ export class HomePage implements OnInit {
   }
 
   read(){
+    console.log("HomePage read");
     // Leemos los datos de la base de datos
     this.sqlite.read().then( (languages: string[]) => {
-      this.languages = languages;
-      console.log("Leido");
+      this.languages = languages; 
+      console.log("HomePage Leido");
       console.log(this.languages);
     }).catch(err => {
       console.error(err);

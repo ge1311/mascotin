@@ -25,6 +25,7 @@ export class SqliteService {
   constructor(
     private http: HttpClient
   ) {
+    console.log("SqliteService constructor");
     this.dbReady = new BehaviorSubject(false);
     this.isWeb = false;
     this.isIOS = false;
@@ -32,7 +33,7 @@ export class SqliteService {
   }
 
   async init() {
-
+    console.log("SqliteService init");
     const info = await Device.getInfo();
     // CapacitorSQLite no tiene disponible el metodo requestPermissions pero si existe y es llamable
     const sqlite = CapacitorSQLite as any;
@@ -47,6 +48,7 @@ export class SqliteService {
       // Si estamos en web, iniciamos la web store
     } else if (info.platform == 'web') {
       this.isWeb = true;
+      console.log("SqliteService isWeb");
       await sqlite.initWebStore();
     } else if (info.platform == 'ios') {
       this.isIOS = true;
@@ -58,7 +60,7 @@ export class SqliteService {
   }
 
   async setupDatabase() {
-
+    console.log("SqliteService setupDatabase");
     // Obtenemos si ya hemos creado la base de datos
     const dbSetup = await Preferences.get({ key: 'first_setup_key' })
 
@@ -67,16 +69,16 @@ export class SqliteService {
       this.downloadDatabase();
     } else {
       // Nos volvemos a conectar
+      console.log("SqliteService not downloadDatabase");
       this.dbName = await this.getDbName();
       await CapacitorSQLite.createConnection({ database: this.dbName });
       await CapacitorSQLite.open({ database: this.dbName })
       this.dbReady.next(true);
     }
-
-
   }
 
   downloadDatabase() {
+    console.log("SqliteService downloadDatabase");
     // Obtenemos el fichero assets/db/db.json
     this.http.get('assets/db/db.json').subscribe(async (jsonExport: JsonSQLite) => {
       const jsonstring = JSON.stringify(jsonExport);
@@ -138,6 +140,7 @@ export class SqliteService {
   }
 
   async read() {
+    console.log("SqliteService read");
     // Sentencia para leer todos los registros
     let sql = 'SELECT * FROM languages';
     // Obtengo la base de datos

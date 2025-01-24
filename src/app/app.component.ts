@@ -18,16 +18,20 @@ export class AppComponent {
               private sqlite: SqliteService) {
     this.isWeb = false;
     this.load = false;
+    console.log("AppComponent constructor");
     this.initApp();
   }
 
   initApp(){
+    console.log("AppComponent initApp");
     this.platform.ready().then( async () => {
       const info = await Device.getInfo();
       this.isWeb = info.platform == 'web';
+      console.log("AppComponent ready().then");
       this.sqlite.init();
       this.sqlite.dbReady.subscribe( load => {
         this.load = load;
+        console.log("AppComponent load" + this.load);
       });
     })
   }
