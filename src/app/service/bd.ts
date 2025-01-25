@@ -1,53 +1,17 @@
 import { Injectable } from '@angular/core';
+import { CapacitorSQLite } from '@capacitor-community/sqlite';
 import { Platform } from '@ionic/angular';
+import { SqliteService } from './sqlite.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BDService {
-  //public database!: SQLiteObject;
-
-  // Definir la tabla de usuario
-  private tablaUsuario: string = `CREATE TABLE IF NOT EXISTS usuario (
-    idusuario INTEGER PRIMARY KEY AUTOINCREMENT,
-    correo VARCHAR(50) NOT NULL,
-    clave VARCHAR(16) NOT NULL,
-    foto BLOB
-  );`;
 
   constructor(
-    //private sqlite: SQLite,
+    private sqlite: SqliteService,
     private platform: Platform
-  ) {
-    this.platform.ready().then(() => {
-      this.inicializarBD();
-    });
-  }
-
-  // Inicializar la base de datos
-  private async inicializarBD() {
-    try {
-      //this.database = await this.sqlite.create({
-      //   name: 'mascotin.db',
-      //   location: 'default'
-      // });
-      await this.crearTablas();
-      console.log('Base de datos inicializada correctamente.');
-    } catch (error) {
-      console.log('Error al inicializar la base de datos: ', error);
-    }
-  }
-
-  // Crear las tablas en la base de datos
-  private async crearTablas() {
-    try {
-      //await this.database.executeSql(this.tablaUsuario, []);
-      console.log('Tablas creadas correctamente.');
-    } catch (error) {
-      console.log('Error al crear las tablas: ', error);
-    }
-  }
-
+  ) {}
   // Insertar un usuario
   insertarUsuario(correo: string, clave: string, foto?: Blob) {
     const query = `INSERT INTO usuario (correo, clave, foto) VALUES (?, ?, ?)`;
@@ -61,17 +25,18 @@ export class BDService {
   }
 
   // Obtener todos los usuarios
-  obtenerUsuarios() {
-    const query = `SELECT * FROM usuario`;
-    // return this.database.executeSql(query, []).then((data) => {
-    //   const usuarios = [];
-    //   for (let i = 0; i < data.rows.length; i++) {
-    //     usuarios.push(data.rows.item(i));  // Guardamos cada usuario
-    //   }
-    //   return usuarios;  // Retorna el array de usuarios
-    // }).catch((error) => {
-    //   console.log('Error al obtener los usuarios: ', error);
-    //   return [];
-    // });
+  async obtenerUsuarios() {
+    const res = await CapacitorSQLite.query({
+      database: this.sqlite.dbName,
+      statement: 'SELECT Id, Nombres, Nickname, Correo, Telefono, Foto_Perfil, Activo FROM tbl_Usuario;',
+      values: []
+    });
+    
+    if (res.values && res.values.length > 0) {
+      return res.values;  // Retorna los valores correctos
+    } else {
+      return [];
+    }
   }
+  
 }

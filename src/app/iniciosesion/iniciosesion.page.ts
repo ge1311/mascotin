@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { Router } from '@angular/router'; 
+import { BDService } from '../service/bd';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -14,7 +16,10 @@ export class InicioSesionPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private menu: MenuController,  private router: Router
+    private menu: MenuController,  
+    private router: Router,
+    private bdService: BDService,
+    private authService: AuthService,
   ) {
     this.loginForm = this.formBuilder.group({
       usuario: ['', [Validators.required, Validators.minLength(3)]],
@@ -26,26 +31,34 @@ export class InicioSesionPage implements OnInit {
     this.menu.enable(true);
   }
 
-  onLogin() {
+  async onLogin() {
     if (this.loginForm.valid) {
-      const usuarioControl = this.loginForm.get('usuario');
-      if (usuarioControl) {
-        const usuario = usuarioControl.value;
-        // Verificar que el nombre de usuario sea válido
-        if (usuario.length > 0) {
-          // Mostrar un mensaje de bienvenida
-          alert(`Bienvenido, ${usuario}!`);
-          // Redirigir al usuario a la página de inicio después de 2 segundos
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 2000);
+      const usuario = this.loginForm.value.usuario;
+      const contrasena = this.loginForm.value.contrasena;
+      console.log(usuario);
+      console.log(contrasena);
+  
+      try {
+        const usuarios = await this.bdService.obtenerUsuarios();
+        console.log(usuarios);
+        const usuarioEncontrado = usuarios.find(
+          (u: any) => u.Nickname.trim() === usuario.trim() && u.Telefono.toString() === contrasena.trim()
+        );
+
+        if (usuarioEncontrado) {
+          await this.authService.guardarUsuario(usuarioEncontrado);
+          this.router.navigate(['/home']);
         } else {
-          // Mostrar un mensaje de error
-          alert('El nombre de usuario no es válido');
+          alert('Usuario o contraseña incorrectos');
         }
+      } catch (error) {
+        alert('Error al validar el usuario:' + error);
       }
+    } else {
+      console.log('Formulario no válido');
     }
   }
+  
   openMenu() {
     
   }

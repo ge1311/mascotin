@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BDService } from '../service/bd'; // Asegúrate de importar el servicio desde la ruta correcta
+import { SqliteService } from '../service/sqlite.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,21 +8,29 @@ import { BDService } from '../service/bd'; // Asegúrate de importar el servicio
   styleUrls: ['./admin.page.scss'],
   standalone:false
 })
-export class AdminPage implements OnInit {
+export class AdminPage  {
   usuarios: any[] = [];  // Array para almacenar los usuarios
 
-  constructor(private bdService: BDService) {}
+  constructor(private bdService: BDService, private sqlite: SqliteService) {}
 
-  ngOnInit() {
-    // Cargar los usuarios cuando la página se inicializa
-    this.cargarUsuarios();
+  ionViewWillEnter(){
+    console.log("AdminPage ionViewWillEnter");
+    this.sqlite.dbReady.subscribe(ready => {
+      if (ready) {
+        this.cargarUsuarios();
+      } else {
+        console.log("Base de datos aún no está lista");
+      }
+    });  
   }
 
   cargarUsuarios() {
-    // this.bdService.obtenerUsuarios().then((usuarios: any[]) => {
-    //   this.usuarios = usuarios;  // Guardamos los usuarios obtenidos
-    // }).catch((error: Error) => {
-    //   console.log('Error al cargar los usuarios:', error);
-    // });
+    this.bdService.obtenerUsuarios().then((usuarios: any[]) => {
+      console.log('Usuarios cargados:', usuarios);
+      this.usuarios = usuarios;
+    }).catch((error: Error) => {
+      console.error('Error al cargar los usuarios:', error);
+    });
+    
   }
 }
