@@ -42,7 +42,7 @@ export class CategoryService {
     }).catch(err => Promise.reject(err))
   }
 
-  async create(titulo: string, descripcion: string, boton: string, imagen: string | null, url: string, activo: boolean) {
+  async create(titulo: string, descripcion: string, boton: string, imagen: string | null, url: string, activo: number) {
     // Sentencia para insertar un registro
     let sql = 'INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Url, Activo) VALUES (?, ?, ?, ?, ?, ?)';
     // Obtengo la base de datos
@@ -72,9 +72,9 @@ export class CategoryService {
     }).catch(err => Promise.reject(err))
   }
 
-  async updateCategoria(id: number, nuevoTitulo: string, nuevaDescripcion: string, nuevaImagen: string) {
+  async updateCategoria(id: number, nuevoTitulo: string, nuevaDescripcion: string, nuevoBoton:string, nuevaImagen: string, nuevaUrl: string, nuevoActivo: Number) {
     // Sentencia SQL para actualizar la categoría
-    let sql = 'UPDATE tbl_Categoria SET Titulo=?, Descripcion=?, Imagen=? WHERE Id=?';
+    let sql = 'UPDATE tbl_Categoria SET Titulo=?, Descripcion=?, Boton=?, Imagen=?, Url=?, Activo=? WHERE Id=?';
 
     try {
       const result = await CapacitorSQLite.executeSet({
@@ -85,12 +85,16 @@ export class CategoryService {
             values: [
               nuevoTitulo,
               nuevaDescripcion,
+              nuevoBoton,
               nuevaImagen,
+              nuevaUrl,
+              nuevoActivo,
               id  // Parámetro para la cláusula WHERE
             ]
           }
         ]
       });
+  
 
       // Verificación de cambios usando el modelo actualizado
       return result.changes && result.changes.changes > 0 
