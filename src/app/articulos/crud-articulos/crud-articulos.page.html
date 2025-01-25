@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Artículo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nuevo Artículo</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Título</ion-label>
+        <ion-input [(ngModel)]="titulo" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-textarea [(ngModel)]="descripcion"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Imagen</ion-label>
+        <ion-input [(ngModel)]="imagen" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Activo</ion-label>
+        <ion-toggle [(ngModel)]="activo" checked="true"></ion-toggle>
+      </ion-item>
+
+      <ion-button expand="block" (click)="guardarArticulo()"> Guardar Artículo </ion-button>
+      <ion-button expand="full" (click)="cancelar()">Cancelar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -20,10 +20,12 @@ const routes: Routes = [
     path: 'articulos',
     loadChildren: () => import('./articulos/articulos.module').then( m => m.ArticulosPageModule)
   },
-  { path: 'articulos/:id', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) }
-  ];
+  { path: 'articulos', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) },
+  { path: 'articulos/:id', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) },
+  { path: 'crud-articulos', loadComponent: () => import('./articulos/crud-articulos/crud-articulos.page').then(m => m.CrudArticulosPage) } 
+];
 
-  @NgModule({
+  @NgModule({ 
   imports: [RouterModule.forRoot(routes)],  
   exports: [RouterModule],
 })

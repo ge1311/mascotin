@@ -3,8 +3,14 @@
     <ion-title>Categorías</ion-title>
   </ion-toolbar>
 </ion-header>
-<div></div>
-<ion-content id="main-content">
+
+<ion-content id="main-content" fullscreen="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  (click)="AgregarArticulo()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <h1 class="center-title">Explora las categorías</h1>
   <mat-card *ngFor="let articulo of articulos" class="example-card" appearance="outlined">
     <mat-card-header>
       <div mat-card-avatar class="avatar">

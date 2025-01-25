@@ -38,4 +38,33 @@ export class ArticulosService {
       return Promise.reject(err);
     });
   }
+
+  async agregarArticulo(articulo: any): Promise<void> {
+    const query = `
+      INSERT INTO tbl_Articulo (Id_Categoria, Id_Usuario, Titulo_Articulo, Imagen, Descripcion, Activo, Fecha)
+      VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+    `;
+
+    const values = [
+      articulo.Id_Categoria,
+      1, // Aquí debes incluir el ID del usuario autenticado
+      articulo.Titulo_Articulo,
+      articulo.Imagen,
+      articulo.Descripcion,
+      articulo.Activo
+    ];
+
+    try {
+      await CapacitorSQLite.query({
+        database: this.sqliteService.dbName,
+        statement: query,
+        values: values
+      });
+
+      console.log('Artículo guardado correctamente en la base de datos.');
+    } catch (error) {
+      console.error('Error al guardar el artículo:', error);
+      throw error;
+    }
+  }
 }

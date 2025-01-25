@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ArticulosPage
+  },  {
+    path: 'crud-articulos',
+    loadChildren: () => import('./crud-articulos/crud-articulos.module').then( m => m.CrudArticulosPageModule)
   }
+
 ];
 
 @NgModule({
