@@ -13,14 +13,14 @@ export class CategoriasPage {
   public categoria: string;
   
   public categorias: { 
-  Id: number, 
-  Titulo: string, 
-  Descripcion: string, 
-  Boton: string, 
-  Imagen?: string, 
-  Url: string,
-  Activo: boolean, 
-  Fecha: string 
+    Id: number, 
+    Titulo: string, 
+    Descripcion: string, 
+    Boton: string, 
+    Imagen?: string, 
+    Url: string,
+    Activo: boolean, 
+    Fecha: string 
   }[] = [];
   
   constructor(private sqlite: SqliteService,

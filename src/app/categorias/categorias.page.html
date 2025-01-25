@@ -13,13 +13,26 @@
   </ion-card-header>
 
   <ion-img [src]="'assets/' + categoria.Imagen" alt="imagen de categoría"></ion-img>
+  
   <ion-card-content>
     {{ categoria.Descripcion }}
   </ion-card-content>
 
-  <ion-button expand="block" [routerLink]="'/articulos/'+ categoria.Id">
+  <ion-button expand="block" [routerLink]="'/articulos/' + categoria.Id">
     {{ categoria.Boton }}
   </ion-button>
+
+  <!-- Panel de acciones -->
+  <div class="panel-acciones">
+    <ion-button color="primary" [routerLink]="'/crear-categoria/' + categoria.Id">
+      <ion-icon slot="start" name="create"></ion-icon>
+      Editar
+    </ion-button>
+    <ion-button color="danger" (click)="eliminarCategoria(categoria.Id)">
+      <ion-icon slot="start" name="trash"></ion-icon>
+      Eliminar
+    </ion-button>
+  </div>
 </ion-card>
 </ion-content>
 <ion-footer>
@@ -27,7 +40,7 @@
     <ion-buttons slot="end">
       <ion-button expand="block" routerLink="/crear-categoria">
         <ion-icon slot="start" name="add"></ion-icon>
-        Crear Nuevo
+        Crear Nueva Categoría
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -67,4 +67,56 @@ export class ArticulosService {
       throw error;
     }
   }
+
+  async updateArticulo(id: number, nuevoTitulo: string, nuevaDescripcion: string, nuevaImagen: string, nuevoActivo: number) {
+      let sql = 'UPDATE tbl_Articulo SET Titulo_Articulo=?, Descripcion=?, Imagen=?, Activo=? WHERE Id=?';
+
+      try {
+        const result = await CapacitorSQLite.executeSet({
+          database: this.sqliteService.dbName,
+          set: [
+            {
+              statement: sql,
+              values: [
+                nuevoTitulo,
+                nuevaDescripcion,
+                nuevaImagen,
+                nuevoActivo,
+                id
+              ]
+            }
+          ]
+        });
+
+        return result.changes && result.changes.changes > 0 
+          ? 'Artículo actualizado exitosamente' 
+          : 'No se realizaron cambios';
+
+      } catch (err) {
+        console.error('Error al actualizar el artículo:', err);
+        throw err;
+      }
+  }
+
+  async obtenerArticuloPorId(id: number) {
+    const sql = 'SELECT * FROM tbl_Articulo WHERE Id = ?';
+    try {
+      const result = await CapacitorSQLite.query({
+        database: this.sqliteService.dbName,
+        statement: sql,
+        values: [id]
+      });
+  
+      if (result.values && result.values.length > 0) {
+        return result.values[0];  // Retorna el primer resultado encontrado
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al obtener el artículo:', error);
+      throw error;
+    }
+  }
+  
+
 }

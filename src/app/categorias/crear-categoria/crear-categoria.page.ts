@@ -18,7 +18,7 @@ export class CrearCategoriaPage {
       Titulo: '',
       Descripcion: '',
       Boton: '',
-      Imagen: '',
+      Imagen: 'imagenes/4.jpg',
       Url: '',
       Activo: true
     };
@@ -115,8 +115,7 @@ export class CrearCategoriaPage {
         });
       }
     }
-    
-    
+
     cancelar() {
       this.navCtrl.back(); // Vuelve a la página anterior sin guardar
     }

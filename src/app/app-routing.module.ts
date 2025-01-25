@@ -16,13 +16,19 @@ const routes: Routes = [
     path: 'crear-categoria',
     loadComponent: () => import('./categorias/crear-categoria/crear-categoria.page').then(m => m.CrearCategoriaPage)
   },
+  { 
+    path: 'crear-categoria/:id', 
+    loadComponent: () => import('./categorias/crear-categoria/crear-categoria.page').then(m => m.CrearCategoriaPage) 
+  },
   {
     path: 'articulos',
     loadChildren: () => import('./articulos/articulos.module').then( m => m.ArticulosPageModule)
   },
   { path: 'articulos', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) },
   { path: 'articulos/:id', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) },
-  { path: 'crud-articulos', loadComponent: () => import('./articulos/crud-articulos/crud-articulos.page').then(m => m.CrudArticulosPage) } 
+  { path: 'crud-articulos', loadComponent: () => import('./articulos/crud-articulos/crud-articulos.page').then(m => m.CrudArticulosPage) }, 
+  { path: 'crud-articulos/:id', loadComponent: () => import('./articulos/crud-articulos/crud-articulos.page').then(m => m.CrudArticulosPage) } 
+
 ];
 
   @NgModule({ 

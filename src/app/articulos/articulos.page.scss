@@ -81,3 +81,13 @@ mat-button {
   width: auto;
   max-width: 450px;
 }
+
+.panel-acciones {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background: #f4f4f4;
+  border-top: 1px solid #ccc;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(135deg, #DB00AB, #163ADB);
+}

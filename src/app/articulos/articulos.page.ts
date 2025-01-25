@@ -61,5 +61,10 @@ export class ArticulosPage {
       state: { categoriaId: idCategoria }
     });
   }
+
+  editarArticulo(articuloId: number) {
+    this.router.navigate(['/crud-articulos'], { state: { articuloId: articuloId } });
+  }
+  
   
 }
