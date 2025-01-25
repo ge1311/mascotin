@@ -16,7 +16,7 @@ export class CategoryService {
     console.log("CategoryService constructor");
   }
 
-  async read() {
+  async cargarListado() {
     console.log("CategoryService read");
     let sql = 'SELECT * FROM tbl_Categoria';
     const dbName = await this.sqlite.getDbName();
@@ -72,5 +72,60 @@ export class CategoryService {
     }).catch(err => Promise.reject(err))
   }
 
+  async updateCategoria(id: number, nuevoTitulo: string, nuevaDescripcion: string, nuevaImagen: string) {
+    // Sentencia SQL para actualizar la categoría
+    let sql = 'UPDATE tbl_Categoria SET Titulo=?, Descripcion=?, Imagen=? WHERE Id=?';
+
+    try {
+      const result = await CapacitorSQLite.executeSet({
+        database: this.sqlite.dbName,
+        set: [
+          {
+            statement: sql,
+            values: [
+              nuevoTitulo,
+              nuevaDescripcion,
+              nuevaImagen,
+              id  // Parámetro para la cláusula WHERE
+            ]
+          }
+        ]
+      });
+
+      // Verificación de cambios usando el modelo actualizado
+      return result.changes && result.changes.changes > 0 
+        ? 'Categoría actualizada exitosamente' 
+        : 'No se realizaron cambios';
+
+    } catch (err) {
+      console.error('Error al actualizar la categoría:', err);
+      throw err;
+    }
+  }
+
+  async obtenerCategoriaPorId(id: number) {
+    console.log("Obteniendo categoría con ID:", id);
+    
+    let sql = 'SELECT * FROM tbl_Categoria WHERE Id = ?';
+    const dbName = await this.sqlite.getDbName();
+    
+    try {
+      const result = await CapacitorSQLite.query({
+        database: dbName,
+        statement: sql,
+        values: [id]
+      });
+  
+      if (result.values && result.values.length > 0) {
+        return result.values[0];
+      } else {
+        throw new Error('Categoría no encontrada');
+      }
+    } catch (err) {
+      console.error('Error al obtener la categoría:', err);
+      throw err;
+    }
+  }
 
 }
+

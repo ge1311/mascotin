@@ -45,7 +45,7 @@ export class CategoriasPage {
     read(){
       console.log("CategoriasPage read");
       // Leemos los datos de la base de datos
-      this.categoryService.read().then( (result: any[]) => {
+      this.categoryService.cargarListado().then( (result: any[]) => {
         this.categorias = result; 
         console.log("CategoriasPage Leido");
         console.log(this.categorias);
@@ -53,5 +53,9 @@ export class CategoriasPage {
         console.error(err);
         console.error("Error al leer");
       })
+    }
+
+    eliminarCategoria(idCategoria){
+      
     }
 }
