@@ -4,14 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true"> 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/crear-categoria">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <h1 class="center-title">Explora las categorías</h1>
-
+<ion-content id="main-content" fullscreen="true"> 
+<h1 class="center-title">Explora las categorías</h1>
 <!-- Lista de todos los elementos -->
 <ion-card *ngFor="let categoria of categorias">
   <ion-card-header>
@@ -28,3 +22,14 @@
   </ion-button>
 </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button expand="block" routerLink="/crear-categoria">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Crear Nuevo
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

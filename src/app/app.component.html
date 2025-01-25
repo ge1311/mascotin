@@ -1,6 +1,6 @@
 <!-- app.component.html -->
 <ion-app>
-  <ion-menu contentId="main-content">
+  <ion-menu contentId="main-content" autoClose="true">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -11,18 +11,20 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item routerLink="/home">
-          <ion-label>Home</ion-label>
-        </ion-item>
-        <ion-item routerLink="/iniciosesion">
-          <ion-label>Iniciar Sesión</ion-label>
-        </ion-item>
-        <ion-item routerLink="/categorias">
-          <ion-label>Categorías</ion-label>
-        </ion-item>
-        <ion-item routerLink="/articulos">
-          <ion-label>Artículos</ion-label>
-        </ion-item>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item routerLink="/home">
+            <ion-label>Home</ion-label>
+          </ion-item>
+          <ion-item routerLink="/iniciosesion">
+            <ion-label>Iniciar Sesión</ion-label>
+          </ion-item>
+          <ion-item routerLink="/categorias">
+            <ion-label>Categorías</ion-label>
+          </ion-item>
+          <ion-item routerLink="/articulos">
+            <ion-label>Artículos</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
