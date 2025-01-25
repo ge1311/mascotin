@@ -16,6 +16,11 @@ const routes: Routes = [
     path: 'crear-categoria',
     loadComponent: () => import('./categorias/crear-categoria/crear-categoria.page').then(m => m.CrearCategoriaPage)
   },
+  {
+    path: 'articulos',
+    loadChildren: () => import('./articulos/articulos.module').then( m => m.ArticulosPageModule)
+  },
+
 ];
 
 @NgModule({

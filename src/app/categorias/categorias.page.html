@@ -15,7 +15,7 @@
 <!-- Lista de todos los elementos -->
 <ion-card *ngFor="let categoria of categorias">
   <ion-card-header>
-    <ion-card-title>{{ categoria.Titulo }}</ion-card-title>
+    <ion-card-title>{{ categoria.Id }} - {{ categoria.Titulo }}</ion-card-title>
   </ion-card-header>
 
   <ion-img [src]="'assets/' + categoria.Imagen" alt="imagen de categoría"></ion-img>
