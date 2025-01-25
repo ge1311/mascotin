@@ -14,7 +14,7 @@ export class CategoryService {
     this.categoria = '';
     this.categorias = [];
     console.log("CategoryService constructor");
-   }
+  }
 
   async read() {
     console.log("CategoryService read");
@@ -42,9 +42,9 @@ export class CategoryService {
     }).catch(err => Promise.reject(err))
   }
 
-  async create(titulo: string, descripcion: string, boton: string, imagen: string | null, activo: boolean) {
+  async create(titulo: string, descripcion: string, boton: string, imagen: string | null, url: string, activo: boolean) {
     // Sentencia para insertar un registro
-    let sql = 'INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Activo) VALUES (?, ?, ?, ?, ?)';
+    let sql = 'INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Url, Activo) VALUES (?, ?, ?, ?, ?, ?)';
     // Obtengo la base de datos
     const dbName = await this.sqlite.getDbName();
     // Ejecutamos la sentencia
@@ -58,6 +58,7 @@ export class CategoryService {
             descripcion,
             boton,
             imagen,
+            url,
             activo ? 1 : 0  // Convertimos booleano a 1 o 0
           ]
         }

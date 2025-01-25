@@ -18,46 +18,13 @@
     <ion-card-title>{{ categoria.Titulo }}</ion-card-title>
   </ion-card-header>
 
-  <ion-img [src]="categoria.Imagen" alt="imagen de categoría"></ion-img>
-
+  <ion-img [src]="'assets/' + categoria.Imagen" alt="imagen de categoría"></ion-img>
   <ion-card-content>
     {{ categoria.Descripcion }}
   </ion-card-content>
 
-  <ion-button expand="block" [routerLink]="categoria.Boton">
+  <ion-button expand="block" [routerLink]="'/' + categoria.Url">
     {{ categoria.Boton }}
   </ion-button>
 </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Salud y cuidados</ion-card-title>
-    </ion-card-header>
-
-    <ion-img [src]="'assets/veterinaria.png'" alt="imagenP"></ion-img>
-
-    <ion-card-content>
-      Aquí encontrarás contenidos sobre salud y cuidados para tu mascota!
-    </ion-card-content>
-    <ion-button expand="block" routerLink="/salud" >
-      Foro de salud
-    </ion-button>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        Reseñas de productos
-      </ion-card-title>
-    </ion-card-header>
-
-    <ion-img [src]="'assets/reseñap.webp'" alt="reseñaP"></ion-img> 
-
-    <ion-card-content>
-      Aquí encontrarás reseñas de productos para tu mascota.
-    </ion-card-content>
-    <ion-button expand="block" routerLink="/resenas" >
-      Foro de reseñas
-    </ion-button>
-  </ion-card>
 </ion-content>

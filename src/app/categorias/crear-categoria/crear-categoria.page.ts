@@ -17,6 +17,7 @@ export class CrearCategoriaPage {
       Descripcion: '',
       Boton: '',
       Imagen: '',
+      Url: '',
       Activo: true
     };
 
@@ -31,6 +32,7 @@ export class CrearCategoriaPage {
         this.categoria.Descripcion || "Descripción de prueba", // Descripción predeterminada si está vacía
         this.categoria.Boton || "Ver", // Botón predeterminado
         this.categoria.Imagen || null,  // Imagen (puede ser null)
+        this.categoria.Url,
         this.categoria.Activo           // Estado de la categoría
       ).then((changes) => {
         console.log(changes);

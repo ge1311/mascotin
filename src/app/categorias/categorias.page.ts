@@ -11,19 +11,18 @@ import { CategoryService } from '../services/category.service';
 })
 export class CategoriasPage {
   public categoria: string;
-  //public categorias: string[];
   
-    public categorias: { 
-    Id: number, 
-    Titulo: string, 
-    Descripcion: string, 
-    Boton: string, 
-    Imagen?: string, 
-    Activo: boolean, 
-    Fecha: string 
-    }[] = [];
+  public categorias: { 
+  Id: number, 
+  Titulo: string, 
+  Descripcion: string, 
+  Boton: string, 
+  Imagen?: string, 
+  Url: string,
+  Activo: boolean, 
+  Fecha: string 
+  }[] = [];
   
-
   constructor(private sqlite: SqliteService,
     private categoryService: CategoryService
     ) {
