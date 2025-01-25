@@ -53,6 +53,9 @@ VALUES
 (1, 2, 'Cepillo a vapor', 'salud2.jpg', 'Mirad cómo quedó mi gatita después de la operación, le puse esta camisita para que no se rasque ni toque la zona.
         Parece una pequeña enfermera, pero sé que esto la va a ayudar a mantenerse cómoda y a no estresarse.', 1),
 (1, 3, 'Shampoo', 'salud3.jpg', 'Recuerda, no bañes a tu perro todos los días. El baño frecuente puede eliminar los aceites naturales de su piel,
-         lo que podría causar irritaciones. Lo ideal es bañarlos cada 3-4 semanas, o según lo necesiten.', 1);
+         lo que podría causar irritaciones. Lo ideal es bañarlos cada 3-4 semanas, o según lo necesiten.', 1),
+(2, 1, 'Comida preparada', 'reseña1.jpg', 'Gente ¿ustedes les preparan comida húmeda a sus mascotas?', 1),
+(2, 2, 'Cepillo a vapor', 'reseña2.jpg', 'Le compre un cepillo a vapor a shifu por amazon y me encanta, le deja el pelo muy suave.', 1),
+(2, 3, 'Shampoo', 'reseña3.webp', 'Me encanta el shampoo de esta marca, se lo recomiendo a todos, huele riquisimo!!', 1);
 
    `;

@@ -23,7 +23,7 @@
     {{ categoria.Descripcion }}
   </ion-card-content>
 
-  <ion-button expand="block" [routerLink]="'/' + categoria.Url">
+  <ion-button expand="block" [routerLink]="'/articulos/'+ categoria.Id">
     {{ categoria.Boton }}
   </ion-button>
 </ion-card>

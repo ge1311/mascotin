@@ -20,10 +20,10 @@ const routes: Routes = [
     path: 'articulos',
     loadChildren: () => import('./articulos/articulos.module').then( m => m.ArticulosPageModule)
   },
+  { path: 'articulos/:id', loadComponent: () => import('./articulos/articulos.page').then(m => m.ArticulosPage) }
+  ];
 
-];
-
-@NgModule({
+  @NgModule({
   imports: [RouterModule.forRoot(routes)],  
   exports: [RouterModule],
 })

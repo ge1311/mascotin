@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { SqliteService } from '../service/sqlite.service';
 import { ArticulosService } from '../services/articulos.service';
@@ -18,18 +19,25 @@ export class ArticulosPage {
   public articulos: any[] = [];
 
   constructor(private sqlite: SqliteService,
-              private articulosService: ArticulosService) {}
+              private articulosService: ArticulosService,
+              private route: ActivatedRoute, ) {}
 
-  ionViewWillEnter(){
-    console.log("CategoriasPage ionViewWillEnter");
-    this.sqlite.dbReady.subscribe(ready => {
-      if (ready) {
-        this.cargarArticulos();
-      } else {
-        console.log("Base de datos aún no está lista");
-      }
-    });  
-  }
+    ionViewWillEnter(){
+      console.log("ArticulosPage  ionViewWillEnter");
+      this.sqlite.dbReady.subscribe(ready => {
+        if (ready) {
+          const idCategoria = Number(this.route.snapshot.paramMap.get('id'));
+          //this.cargarArticulos();
+          if (idCategoria) {
+            this.filtrarPorCategoria(idCategoria);
+          } else {
+            console.log("No se recibió una categoría válida en la URL");
+          }
+        } else {
+          console.log("Base de datos aún no está lista");
+        }
+      });  
+    }
 
   async cargarArticulos() {
     try {
@@ -38,4 +46,14 @@ export class ArticulosPage {
       console.error('Error al cargar artículos:', error);
     }
   }
+
+  filtrarPorCategoria(idCategoria: number) {
+    this.articulosService.obtenerTodosLosArticulos().then(articulos => {
+      this.articulos = articulos.filter(articulo => articulo.Id_Categoria === idCategoria);
+    }).catch(error => {
+      console.error('Error al filtrar artículos:', error);
+    });
+  }
+   
+  
 }
