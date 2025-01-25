@@ -55,23 +55,4 @@ export class CategoriasPage {
         console.error("Error al leer");
       })
     }
-
-    create(){
-      // Creamos un elemento en la base de datos
-      this.categoryService.create(this.categoria.toUpperCase(),  // Título
-            "Descripción de prueba",       // Descripción
-            "Ver",                         // Botón
-            null,                           // Imagen
-            true                           // Activo
-      ).then( (changes) =>{
-        console.log(changes);
-        console.log("Creado");
-        this.categoria = '';
-        this.read(); // Volvemos a leer la lista de categorías actualizada
-      }).catch(err => {
-        console.error(err);
-        console.error("Error al crear");
-      })
-    }
-  
 }

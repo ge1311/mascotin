@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Categorías</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input [(ngModel)]="categoria.Titulo" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input [(ngModel)]="categoria.Descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Botón</ion-label>
+      <ion-input [(ngModel)]="categoria.Boton"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Imagen (URL)</ion-label>
+      <ion-input [(ngModel)]="categoria.Imagen"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Activo</ion-label>
+      <ion-toggle [(ngModel)]="categoria.Activo"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <div class="button-container">
+    <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+    <ion-button expand="full" (click)="cancelar()">Cancelar</ion-button>
+  </div>
+</ion-content>

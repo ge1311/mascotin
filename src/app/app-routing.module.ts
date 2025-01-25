@@ -12,7 +12,10 @@ const routes: Routes = [
   { path: 'anecdotas', loadChildren: () => import('./anecdotas/anecdotas.module').then(m => m.AnecdotasPageModule) },
   {path: 'perfilusuario',loadChildren: () => import('./perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule)},
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)},
-
+  { 
+    path: 'crear-categoria',
+    loadComponent: () => import('./categorias/crear-categoria/crear-categoria.page').then(m => m.CrearCategoriaPage)
+  },
 ];
 
 @NgModule({

@@ -10,26 +10,25 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  
   <h1 class="center-title">Explora las categorías</h1>
-<!-- Formulario para añadir un elemento -->
-<ion-item>
-  <ion-input label="Categorias: " [(ngModel)]="categoria" name="categoria"></ion-input>
-  <ion-button (click)="create()">
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-button>
-</ion-item>
 
 <!-- Lista de todos los elementos -->
-<ion-list>
-  <ion-item-sliding *ngFor="let categoria of categorias">
-    <!-- elemento -->
-    <ion-item>
-      <p>{{ categoria.Titulo }}</p>
-      <p>{{ categoria.Descripcion }}</p>
-    </ion-item>
-  </ion-item-sliding>
-</ion-list>
+<ion-card *ngFor="let categoria of categorias">
+  <ion-card-header>
+    <ion-card-title>{{ categoria.Titulo }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-img [src]="categoria.Imagen" alt="imagen de categoría"></ion-img>
+
+  <ion-card-content>
+    {{ categoria.Descripcion }}
+  </ion-card-content>
+
+  <ion-button expand="block" [routerLink]="categoria.Boton">
+    {{ categoria.Boton }}
+  </ion-button>
+</ion-card>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title>Salud y cuidados</ion-card-title>
