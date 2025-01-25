@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CapacitorSQLite, capSQLiteValues } from '@capacitor-community/sqlite';
+import { CapacitorSQLite, capSQLiteChanges, capSQLiteValues } from '@capacitor-community/sqlite';
 import { SqliteService } from '../service/sqlite.service';
 
 @Injectable({
@@ -18,11 +18,8 @@ export class CategoryService {
 
   async read() {
     console.log("CategoryService read");
-    // Sentencia para leer todos los registros
-    let sql = 'SELECT * FROM languages';
-    // Obtengo la base de datos
+    let sql = 'SELECT * FROM tbl_Categoria';
     const dbName = await this.sqlite.getDbName();
-    // Ejecutamos la sentencia
     return CapacitorSQLite.query({
       database: dbName,
       statement: sql,
@@ -36,13 +33,43 @@ export class CategoryService {
 
       // recorremos los datos
       for (let index = 0; index < response.values.length; index++) {
-        const language = response.values[index];
-        categorias.push(language.name);
+        const categoria = response.values[index];
+        categorias.push(categoria);
       }
       console.log('datos for' + categorias);
       return categorias;
 
     }).catch(err => Promise.reject(err))
   }
+
+  async create(titulo: string, descripcion: string, boton: string, imagen: string | null, activo: boolean) {
+    // Sentencia para insertar un registro
+    let sql = 'INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Activo) VALUES (?, ?, ?, ?, ?)';
+    // Obtengo la base de datos
+    const dbName = await this.sqlite.getDbName();
+    // Ejecutamos la sentencia
+    return CapacitorSQLite.executeSet({
+      database: dbName,
+      set: [
+        {
+          statement: sql,
+          values: [
+            titulo,
+            descripcion,
+            boton,
+            imagen,
+            activo ? 1 : 0  // Convertimos booleano a 1 o 0
+          ]
+        }
+      ]
+    }).then((changes: capSQLiteChanges) => {
+      // Si es web, debemos guardar el cambio en la webstore manualmente
+      if (this.sqlite.isWeb) {
+        CapacitorSQLite.saveToStore({ database: dbName });
+      }
+      return changes;
+    }).catch(err => Promise.reject(err))
+  }
+
 
 }

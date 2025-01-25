@@ -66,6 +66,7 @@ export class SqliteService {
     // Sino la hemos creado, descargamos y creamos la base de datos
     if (!dbSetup.value) {
       this.createDatabase();
+      this.createTables();
     } else {
       // Nos volvemos a conectar
       console.log("SqliteService not downloadDatabase");
@@ -75,6 +76,45 @@ export class SqliteService {
       this.dbReady.next(true);
     }
   }
+
+  private async createTables() {
+    const CREATE_TABLES = `CREATE TABLE IF NOT EXISTS tbl_Categoria (
+      Id INTEGER PRIMARY KEY AUTOINCREMENT,
+      Titulo TEXT NOT NULL CHECK (LENGTH(Titulo) <= 20),
+      Descripcion TEXT NOT NULL CHECK (LENGTH(Descripcion) <= 50),
+      Boton TEXT NOT NULL CHECK (LENGTH(Boton) <= 10),
+      Imagen TEXT,
+      Activo BOOLEAN NOT NULL DEFAULT 1,
+      Fecha DATETIME DEFAULT CURRENT_TIMESTAMP);`;
+  
+    try {
+      await CapacitorSQLite.open({ database: this.dbName });
+      await CapacitorSQLite.execute({
+        database: this.dbName,
+        statements: CREATE_TABLES
+      });
+      console.log("Tabla 'categories' creada correctamente");
+    } catch (error) {
+      console.error("Error al crear la tabla 'categories':", error);
+    }
+
+    const INSERT_DEFAULT_DATA = `
+    INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Activo)
+    VALUES ('Ejemplo', 'Descripción de prueba', 'OK', NULL, 1);`;
+    const dbName = await this.getDbName();
+    return CapacitorSQLite.execute({
+      database: dbName,
+      statements: INSERT_DEFAULT_DATA
+    }).then((changes: capSQLiteChanges) => {
+      // Si es web, debemos guardar el cambio en la webstore manualmente
+      if (this.isWeb) {
+        CapacitorSQLite.saveToStore({ database: dbName });
+      }
+      return changes;
+    }).catch(err => Promise.reject(err))
+
+  }
+  
 
   async createDatabase() {
       console.error("createDatabase")

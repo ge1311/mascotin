@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content fullscreen="true"> 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/crear-categoria">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
   <h1 class="center-title">Explora las categorías</h1>
 <!-- Formulario para añadir un elemento -->
 <ion-item>
@@ -19,9 +25,9 @@
   <ion-item-sliding *ngFor="let categoria of categorias">
     <!-- elemento -->
     <ion-item>
-      <ion-label>{{categoria}}</ion-label>
+      <p>{{ categoria.Titulo }}</p>
+      <p>{{ categoria.Descripcion }}</p>
     </ion-item>
-
   </ion-item-sliding>
 </ion-list>
   <ion-card>

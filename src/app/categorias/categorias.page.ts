@@ -11,7 +11,18 @@ import { CategoryService } from '../services/category.service';
 })
 export class CategoriasPage {
   public categoria: string;
-  public categorias: string[];
+  //public categorias: string[];
+  
+    public categorias: { 
+    Id: number, 
+    Titulo: string, 
+    Descripcion: string, 
+    Boton: string, 
+    Imagen?: string, 
+    Activo: boolean, 
+    Fecha: string 
+    }[] = [];
+  
 
   constructor(private sqlite: SqliteService,
     private categoryService: CategoryService
@@ -35,8 +46,8 @@ export class CategoriasPage {
     read(){
       console.log("CategoriasPage read");
       // Leemos los datos de la base de datos
-      this.categoryService.read().then( (categorias: string[]) => {
-        this.categorias = categorias; 
+      this.categoryService.read().then( (result: any[]) => {
+        this.categorias = result; 
         console.log("CategoriasPage Leido");
         console.log(this.categorias);
       }).catch(err => {
@@ -47,11 +58,16 @@ export class CategoriasPage {
 
     create(){
       // Creamos un elemento en la base de datos
-      this.sqlite.create(this.categoria.toUpperCase()).then( (changes) =>{
+      this.categoryService.create(this.categoria.toUpperCase(),  // Título
+            "Descripción de prueba",       // Descripción
+            "Ver",                         // Botón
+            null,                           // Imagen
+            true                           // Activo
+      ).then( (changes) =>{
         console.log(changes);
         console.log("Creado");
         this.categoria = '';
-        this.read(); // Volvemos a leer
+        this.read(); // Volvemos a leer la lista de categorías actualizada
       }).catch(err => {
         console.error(err);
         console.error("Error al crear");
