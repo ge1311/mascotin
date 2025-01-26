@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { SqliteService } from '../service/sqlite.service';
 import { ArticulosService } from '../services/articulos.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-articulos',
@@ -17,28 +18,42 @@ import { ArticulosService } from '../services/articulos.service';
 export class ArticulosPage {
 
   public articulos: any[] = [];
+  esAdmin: boolean = false;
 
   constructor(private sqlite: SqliteService,
               private articulosService: ArticulosService,
               private route: ActivatedRoute, 
               private router: Router,
-              private alertController: AlertController) {}
+              private alertController: AlertController,
+              private authService: AuthService) {}
 
-    ionViewWillEnter(){
-      console.log("ArticulosPage  ionViewWillEnter");
-      this.sqlite.dbReady.subscribe(ready => {
-        if (ready) {
-          const idCategoria = Number(this.route.snapshot.paramMap.get('id'));
-          if (idCategoria) {
-            this.filtrarPorCategoria(idCategoria);
-          } else {
-            this.cargarArticulos();
-          }
+  ionViewWillEnter(){
+    console.log("ArticulosPage  ionViewWillEnter");
+    this.sqlite.dbReady.subscribe(ready => {
+      if (ready) {
+        const idCategoria = Number(this.route.snapshot.paramMap.get('id'));
+        if (idCategoria) {
+          this.filtrarPorCategoria(idCategoria);
         } else {
-          console.log("Base de datos aún no está lista");
+          this.cargarArticulos();
         }
-      });  
+        this.verificarAdmin();
+      } else {
+        console.log("Base de datos aún no está lista");
+      }
+    });  
+  }
+
+  async verificarAdmin() {
+    try {
+      const esAdminResult = await this.authService.esUsuarioAdmin();
+      this.esAdmin = Boolean(esAdminResult); // Asegura conversión explícita a booleano
+      console.log('this.esAdmin:', this.esAdmin);
+    } catch (error) {
+      console.error("Error al verificar admin o cargar datos:", error);
     }
+  }
+
 
   async cargarArticulos() {
     try {

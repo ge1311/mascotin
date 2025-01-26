@@ -20,7 +20,7 @@
     </mat-card-actions>
 
      <!-- Panel de acciones -->
-    <div class="panel-acciones">
+    <div class="panel-acciones" *ngIf="esAdmin">
       <ion-button color="primary" (click)="editarArticulo(articulo.Id)">
         <ion-icon slot="start" name="create"></ion-icon>
         Editar
@@ -40,7 +40,7 @@
     </mat-card-content>
   </mat-card>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="esAdmin">
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button expand="block" (click)="AgregarArticulo()">
