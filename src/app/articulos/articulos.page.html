@@ -5,7 +5,7 @@
       <div mat-card-avatar class="avatar">
         <img src="assets/avatarp.jpg" alt="User Avatar" />
       </div>
-      <mat-card-title>{{ articulo.Id_Usuario }}</mat-card-title>
+      <mat-card-title>{{ articulo.Nickname }}</mat-card-title>
       <mat-card-subtitle>{{ articulo.Titulo_Articulo }}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="'assets/' + (articulo.Imagen ? articulo.Imagen : 'default.jpg')" alt="Imagen del artículo">
@@ -40,7 +40,7 @@
     </mat-card-content>
   </mat-card>
 </ion-content>
-<ion-footer *ngIf="esAdmin">
+<ion-footer *ngIf="hasCategory">
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button expand="block" (click)="AgregarArticulo()">

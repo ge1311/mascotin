@@ -29,10 +29,10 @@
   </div>
 </ion-card>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="esAdmin">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button expand="block" routerLink="/crear-categoria" *ngIf="esAdmin">
+      <ion-button expand="block" routerLink="/crear-categoria">
         <ion-icon slot="start" name="add"></ion-icon>
         Crear Nueva Categoría
       </ion-button>

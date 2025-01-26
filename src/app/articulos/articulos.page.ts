@@ -19,6 +19,7 @@ export class ArticulosPage {
 
   public articulos: any[] = [];
   esAdmin: boolean = false;
+  hasCategory: boolean = false; // Si entra por todos los articulos no puede crear xq no hay categoria
 
   constructor(private sqlite: SqliteService,
               private articulosService: ArticulosService,
@@ -34,6 +35,7 @@ export class ArticulosPage {
         const idCategoria = Number(this.route.snapshot.paramMap.get('id'));
         if (idCategoria) {
           this.filtrarPorCategoria(idCategoria);
+          this.hasCategory = true;
         } else {
           this.cargarArticulos();
         }

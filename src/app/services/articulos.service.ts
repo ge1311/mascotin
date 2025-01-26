@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CapacitorSQLite, capSQLiteValues } from '@capacitor-community/sqlite';
 import { SqliteService } from '../service/sqlite.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticulosService {
 
-  constructor(private sqliteService: SqliteService) {}
+  constructor(private sqliteService: SqliteService,
+              private authService: AuthService,
+  ) {}
 
   async obtenerTodosLosArticulos() {
-    const sql = 'SELECT * FROM tbl_Articulo';
+    const sql = 'SELECT * FROM tbl_Articulo a INNER JOIN tbl_Usuario u ON a.Id_Usuario = u.Id';
     const dbName = await this.sqliteService.getDbName();
     return CapacitorSQLite.query({
       database: this.sqliteService.dbName,
@@ -40,6 +43,11 @@ export class ArticulosService {
   }
 
   async agregarArticulo(articulo: any): Promise<void> {
+    const usuario = await this.authService.obtenerUsuario();
+    if (!usuario || !usuario.Id) {
+        throw new Error('Usuario no autenticado.');
+    }
+
     const query = `
       INSERT INTO tbl_Articulo (Id_Categoria, Id_Usuario, Titulo_Articulo, Imagen, Descripcion, Activo, Fecha)
       VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
@@ -47,7 +55,7 @@ export class ArticulosService {
 
     const values = [
       articulo.Id_Categoria,
-      1, // Aquí debes incluir el ID del usuario autenticado
+      usuario.Id,  
       articulo.Titulo_Articulo,
       articulo.Imagen,
       articulo.Descripcion,

@@ -50,8 +50,7 @@ export class BDService {
     }
 }
 
-
-  // Obtener todos los usuarios
+// Obtener todos los usuarios
   async obtenerUsuarios() {
     const res = await CapacitorSQLite.query({
       database: this.sqlite.dbName,
