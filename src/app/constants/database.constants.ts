@@ -45,7 +45,7 @@ VALUES ('Reseñas de productos', 'Aquí encontrarás reseñas de productos para 
 
 INSERT INTO tbl_Usuario (Nombres, Nickname, Correo, Telefono, Foto_Perfil, Clave, Activo, Admin) 
 VALUES 
-('Administrador', 'admin', 'juan.perez@email.com', 1234567890, 'avatarp.jpg','123456', 1,0),
+('Administrador', 'admin', 'juan.perez@email.com', 1234567890, 'avatarp.jpg','123456', 1,1),
 ('María López', 'Marla77', 'maria.lopez@email.com', 987654321, 'avatar2.jpg','Clave123', 1,0),
 ('Carlos Gómez', 'Esteb4nZ', 'carlos.gomez@email.com', 312456789, 'avatar3.jpg','Clave123', 1,0);
 
