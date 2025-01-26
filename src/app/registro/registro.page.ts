@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; 
 import { BDService } from '../service/bd';
 
 @Component({
@@ -21,13 +21,16 @@ export class RegistroPage {
     private bdService: BDService
   ) {
     this.registerForm = this.fb.group({
-      usuario: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/), Validators.minLength(3)]],
+      nombres: ['', [Validators.required]],
+      nickname: ['', [Validators.required, Validators.minLength(3)]],
       correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.pattern('^[0-9]+$')]],
       clave: ['', [Validators.required, Validators.minLength(6)]],
-      repetirClave: ['', [Validators.required]],
+      repetirClave: ['', [Validators.required]]
     }, {
       validator: this.matchingPasswords('clave', 'repetirClave')
     });
+    
   }
 
   matchingPasswords(claveKey: string, repetirClaveKey: string) {
@@ -45,28 +48,38 @@ export class RegistroPage {
 
   async registrar() {
     this.formSubmitted = true;
-
+  
     if (this.registerForm.valid) {
-      const { correo, clave } = this.registerForm.value;
-
-      // Llamar al servicio BD para insertar el usuario
+      const { nombres, nickname, correo, clave, telefono, fotoPerfil } = this.registerForm.value;
+  
+      // Llamar al servicio BD para insertar el usuario con todos los campos necesarios
       try {
-        await this.bdService.insertarUsuario(correo, clave);
+        await this.bdService.insertarUsuario(
+          nombres, 
+          nickname, 
+          correo, 
+          clave, 
+          telefono || null, 
+          fotoPerfil || null, 
+          false,  // Admin por defecto en true
+          true   // Activo por defecto en true
+        );
         console.log('Usuario registrado correctamente en la base de datos.');
       } catch (error) {
         console.log('Error al registrar el usuario:', error);
+        return;
       }
-
+  
       // Mostrar alerta de éxito
       const alert = await this.alertController.create({
         header: 'Éxito',
         message: '¡Te has registrado correctamente!',
         buttons: ['OK']
       });
-
+  
       await alert.present();
-
-      // Redirigir al inicio
+  
+      // Redirigir al inicio de sesión después de cerrar la alerta
       alert.onDidDismiss().then(() => {
         this.router.navigate(['/iniciosesion']);
       });
@@ -74,4 +87,5 @@ export class RegistroPage {
       console.log('Formulario inválido');
     }
   }
+  
 }

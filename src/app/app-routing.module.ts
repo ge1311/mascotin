@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'iniciosesion', pathMatch: 'full' },
+  { path: '', canActivate: [AuthGuard], children: [] },
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
   { path: 'iniciosesion', loadChildren: () => import('./iniciosesion/iniciosesion.module').then(m => m.IniciosesionPageModule) },
   { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasPageModule) },

@@ -15,6 +15,7 @@ export const CREATE_TABLES = `CREATE TABLE IF NOT EXISTS tbl_Categoria (
     Correo TEXT NOT NULL UNIQUE,
     Telefono NUMERIC(15),
     Foto_Perfil TEXT,
+    Clave TEXT NOT NULL,
     Admin BOOLEAN NOT NULL DEFAULT 1,
     Activo BOOLEAN NOT NULL DEFAULT 1);
     
@@ -42,11 +43,11 @@ INSERT INTO tbl_Categoria (Titulo, Descripcion, Boton, Imagen, Url, Activo)
 VALUES ('Reseñas de productos', 'Aquí encontrarás reseñas de productos para tu mascota.',
   'Foro de reseñas','reseñap.webp','resenas', 1);
 
-INSERT INTO tbl_Usuario (Nombres, Nickname, Correo, Telefono, Foto_Perfil, Activo, Admin) 
+INSERT INTO tbl_Usuario (Nombres, Nickname, Correo, Telefono, Foto_Perfil, Clave, Activo, Admin) 
 VALUES 
-('Juan Pérez', 'Usuario123', 'juan.perez@email.com', 1234567890, 'avatarp.jpg', 1,1),
-('María López', 'Marla77', 'maria.lopez@email.com', 987654321, 'avatar2.jpg', 1,0),
-('Carlos Gómez', 'Esteb4nZ', 'carlos.gomez@email.com', 312456789, 'avatar3.jpg', 1,0);
+('Juan Pérez', 'Usuario123', 'juan.perez@email.com', 1234567890, 'avatarp.jpg','Clave123', 1,1),
+('María López', 'Marla77', 'maria.lopez@email.com', 987654321, 'avatar2.jpg','Clave123', 1,0),
+('Carlos Gómez', 'Esteb4nZ', 'carlos.gomez@email.com', 312456789, 'avatar3.jpg','Clave123', 1,0);
 
 INSERT INTO tbl_Articulo (Id_Categoria, Id_Usuario, Titulo_Articulo, Imagen, Descripcion, Activo)
 VALUES 

@@ -12,23 +12,50 @@ export class BDService {
     private sqlite: SqliteService,
     private platform: Platform
   ) {}
-  // Insertar un usuario
-  insertarUsuario(correo: string, clave: string, foto?: Blob) {
-    const query = `INSERT INTO usuario (correo, clave, foto) VALUES (?, ?, ?)`;
-    const values = [correo, clave, foto || null];
 
-    //return this.database.executeSql(query, values).then(() => {
-    //   console.log('Usuario insertado correctamente en la base de datos.');
-    // }).catch((error) => {
-    //   console.log('Error al insertar el usuario en la base de datos: ', error);
-    // });
-  }
+  async insertarUsuario(nombres: string, nickname: string, correo: string, clave: string, telefono?: number, fotoPerfil?: string, admin: boolean = true, activo: boolean = true) {
+    const sql = `
+        INSERT INTO tbl_Usuario 
+        (Nombres, Nickname, Correo, Clave, Telefono, Foto_Perfil, Admin, Activo)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const values = [
+        nombres, 
+        nickname, 
+        correo, 
+        clave, 
+        telefono || null, 
+        fotoPerfil || null, 
+        admin ? 1 : 0, 
+        activo ? 1 : 0
+    ];
+
+    try {
+        const res = await CapacitorSQLite.run({
+            database: this.sqlite.dbName,
+            statement: sql,
+            values: values
+        });
+
+        if (res.changes && res.changes.changes > 0) {
+            console.log('Usuario insertado correctamente.');
+            return true;
+        } else {
+            console.error('No se pudo insertar el usuario.');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error al insertar usuario:', error);
+        return false;
+    }
+}
+
 
   // Obtener todos los usuarios
   async obtenerUsuarios() {
     const res = await CapacitorSQLite.query({
       database: this.sqlite.dbName,
-      statement: 'SELECT Id, Nombres, Nickname, Correo, Telefono, Foto_Perfil, Activo, Admin FROM tbl_Usuario;',
+      statement: 'SELECT Id, Nombres, Nickname, Correo, Telefono, Foto_Perfil, Clave, Activo, Admin FROM tbl_Usuario;',
       values: []
     });
     
