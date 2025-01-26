@@ -22,8 +22,8 @@ export class InicioSesionPage implements OnInit {
     private authService: AuthService,
   ) {
     this.loginForm = this.formBuilder.group({
-      usuario: ['', [Validators.required, Validators.minLength(3)]],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      usuario: ['Usuario123', [Validators.required, Validators.minLength(3)]],
+      contrasena: ['1234567890', [Validators.required, Validators.minLength(6)]],
     });
   }
 

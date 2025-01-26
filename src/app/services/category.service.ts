@@ -131,5 +131,30 @@ export class CategoryService {
     }
   }
 
+  async eliminarCategoria(id: number) {
+    const sql = 'DELETE FROM tbl_Categoria WHERE Id = ?';
+    try {
+      const result = await CapacitorSQLite.executeSet({
+        database: this.sqlite.dbName,
+        set: [
+          {
+            statement: sql,
+            values: [id]
+          }
+        ]
+      });
+  
+      // Verificar si se eliminaron registros
+      if (result.changes && result.changes.changes > 0) {
+        return result; 
+      } else {
+        return { changes: { changes: 0 } };
+      }
+    } catch (error) {
+      console.error('Error al eliminar la categoría:', error);
+      throw error;
+    }
+  }
+  
 }
 

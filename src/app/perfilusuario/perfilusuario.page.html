@@ -1,25 +1,11 @@
-<ion-menu content-id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menú</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item routerLink="/iniciosesion">
-        <ion-label>Iniciar Sesión</ion-label>
-      </ion-item>
-      <ion-item routerLink="/categorias">
-        <ion-label>Categorías</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-
 <ion-header>
   <ion-toolbar>
-    <ion-title>Perfil de Usuario</ion-title>
+    <ion-buttons slot="start">
+      
+    </ion-buttons>
+    <div class="logo-container">
+     
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -32,15 +18,19 @@
       <ion-card-content>
         <ion-item>
           <ion-label>Nombre de Usuario:</ion-label>
-          <ion-text>{{ userData.username }}</ion-text>
+          <ion-text>{{ userData.Nickname }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Correo Electrónico:</ion-label>
-          <ion-text>{{ userData.email }}</ion-text>
+          <ion-text>{{ userData.Correo }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Teléfono:</ion-label>
-          <ion-text>{{ userData.phone }}</ion-text>
+          <ion-text>{{ userData.Telefono }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Admin</ion-label>
+          <ion-toggle [(ngModel)]="userData.Admin"></ion-toggle>
         </ion-item>
       </ion-card-content>
     </ion-card>

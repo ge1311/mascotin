@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
+      Usuarios Actuales
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,6 +18,7 @@
           <p><strong>Correo:</strong> {{ usuario.Correo }}</p>
           <p><strong>Teléfono:</strong> {{ usuario.Telefono || 'No disponible' }}</p>
           <p><strong>Estado:</strong> {{ usuario.Activo ? 'Activo' : 'Inactivo' }}</p>
+          <p><strong>Estado:</strong> {{ usuario.Admin ? 'Administrador' : 'Usuario' }}</p>
         </ion-label>
       </ion-item>
     </ion-card>

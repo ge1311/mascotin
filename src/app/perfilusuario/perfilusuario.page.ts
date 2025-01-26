@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-perfilusuario',
@@ -8,13 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilusuarioPage implements OnInit {
  
-  userData = {
-    username: 'UsuarioDemo', 
-    email: 'usuario@ejemplo.com', 
-    phone: '123-456-7890', 
-  };
+  userData: any = {};
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cargarDatosUsuario();
+  }
+
+  async cargarDatosUsuario() {
+    try {
+      this.userData = await this.authService.obtenerUsuario();
+    } catch (error) {
+      console.error('Error al cargar los datos del usuario:', error);
+    }
+  }
 }

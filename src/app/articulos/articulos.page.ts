@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { SqliteService } from '../service/sqlite.service';
 import { ArticulosService } from '../services/articulos.service';
 
@@ -21,7 +21,8 @@ export class ArticulosPage {
   constructor(private sqlite: SqliteService,
               private articulosService: ArticulosService,
               private route: ActivatedRoute, 
-              private router: Router) {}
+              private router: Router,
+              private alertController: AlertController) {}
 
     ionViewWillEnter(){
       console.log("ArticulosPage  ionViewWillEnter");
@@ -64,6 +65,36 @@ export class ArticulosPage {
 
   editarArticulo(articuloId: number) {
     this.router.navigate(['/crud-articulos'], { state: { articuloId: articuloId } });
+  }
+
+  async eliminarArticulo(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Estás seguro de que deseas eliminar este artículo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            try {
+              const result = await this.articulosService.eliminarArticulo(id);
+              if (result.changes && result.changes.changes > 0) {
+                this.articulos = this.articulos.filter(c => c.Id !== id);
+              } else {
+                console.log('No se pudo eliminar la categoría');
+              }
+            } catch (error) {
+              console.error('Error al eliminar la categoría:', error);
+            }
+          },
+        },
+      ],
+    });
+  
+    await alert.present();
   }
   
   

@@ -118,5 +118,29 @@ export class ArticulosService {
     }
   }
   
+  async eliminarArticulo(id: number) {
+    const sql = 'DELETE FROM tbl_Articulo WHERE Id = ?';
+    try {
+      const result = await CapacitorSQLite.executeSet({
+        database: this.sqliteService.dbName,
+        set: [
+          {
+            statement: sql,
+            values: [id]
+          }
+        ]
+      });
+  
+      // Verificar si se eliminaron registros
+      if (result.changes && result.changes.changes > 0) {
+        return result; 
+      } else {
+        return { changes: { changes: 0 } };
+      }
+    } catch (error) {
+      console.error('Error al eliminar el articulo:', error);
+      throw error;
+    }
+  }
 
 }

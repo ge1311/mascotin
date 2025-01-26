@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Categorías</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content id="main-content" fullscreen="true">
-  <h1 class="center-title">Explora los artículos</h1>
+  <h1 class="center-title">Explora los post de los usuarios</h1>
   <mat-card *ngFor="let articulo of articulos" class="example-card" appearance="outlined">
     <mat-card-header>
       <div mat-card-avatar class="avatar">
@@ -32,7 +26,7 @@
         Editar
       </ion-button>
             
-      <ion-button color="danger">
+      <ion-button color="danger" (click)="eliminarArticulo(articulo.Id)">
         <ion-icon slot="start" name="trash"></ion-icon>
         Eliminar
       </ion-button>

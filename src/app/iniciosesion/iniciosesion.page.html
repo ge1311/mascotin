@@ -1,14 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button (click)="openMenu()"></ion-menu-button>
-    </ion-buttons>
-    <div class="logo-container">
-      <img src="assets/logo2.png" alt="Logo" class="logo" />
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content id="main-content" class="login-background">
   <div class="titulo">
     <h1>Iniciar sesión</h1>
@@ -17,16 +6,15 @@
 
   <div class="form-container">
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <ion-item>
+      <ion-item class="input-item">
         <ion-label position="stacked">Ingrese usuario:</ion-label>
         <ion-input formControlName="usuario" type="text"></ion-input>
       </ion-item>
   
       <ion-item class="input-item">
         <ion-label position="stacked">Ingrese contraseña:</ion-label>
-      <ion-input formControlName="contrasena" type="password"></ion-input>
-      
-    </ion-item>
+        <ion-input formControlName="contrasena" type="password"></ion-input>
+      </ion-item>
   
       <ion-button expand="block" class="login-button" type="submit">Ingresar</ion-button>
   
@@ -34,6 +22,5 @@
         ¿No tienes cuenta? <a routerLink="/registro">Regístrate</a>
       </p>
     </form>
-
   </div>
 </ion-content>

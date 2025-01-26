@@ -28,7 +28,7 @@ export class BDService {
   async obtenerUsuarios() {
     const res = await CapacitorSQLite.query({
       database: this.sqlite.dbName,
-      statement: 'SELECT Id, Nombres, Nickname, Correo, Telefono, Foto_Perfil, Activo FROM tbl_Usuario;',
+      statement: 'SELECT Id, Nombres, Nickname, Correo, Telefono, Foto_Perfil, Activo, Admin FROM tbl_Usuario;',
       values: []
     });
     

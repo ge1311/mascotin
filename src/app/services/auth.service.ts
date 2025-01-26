@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { Preferences } from '@capacitor/preferences';
+import { BehaviorSubject } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private autenticado = new BehaviorSubject<boolean>(false);
+  usuarioAutenticado$ = this.autenticado.asObservable();
+
   private readonly USER_KEY = 'usuarioActivo';
 
   async guardarUsuario(usuario: any): Promise<void> {
@@ -15,6 +21,8 @@ export class AuthService {
     } else {
       localStorage.setItem(this.USER_KEY, usuarioStr);
     }
+    // Actualiza el estado de autenticación después de guardar el usuario
+    this.autenticado.next(true);
   }
 
   async obtenerUsuario(): Promise<any | null> {
@@ -23,6 +31,7 @@ export class AuthService {
       return value ? JSON.parse(value) : null;
     } else {
       const usuarioStr = localStorage.getItem(this.USER_KEY);
+      console.log('Usuario ' + usuarioStr);
       return usuarioStr ? JSON.parse(usuarioStr) : null;
     }
   }
@@ -37,6 +46,22 @@ export class AuthService {
 
   async estaAutenticado(): Promise<boolean> {
     const usuario = await this.obtenerUsuario();
-    return usuario !== null;
+    const estaAutenticado = usuario !== null;
+    this.autenticado.next(estaAutenticado);
+    return estaAutenticado;
   }
+
+  async esUsuarioAdmin(): Promise<boolean> {
+    try {
+      const usuario = await this.obtenerUsuario();
+      return Number(usuario?.Admin) === 1;
+    } catch (error) {
+      console.error('Error al verificar si el usuario es admin:', error);
+      return false;
+    }
+  }
+  
+  
+  
+
 }
