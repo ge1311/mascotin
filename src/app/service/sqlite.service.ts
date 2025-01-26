@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CapacitorSQLite, capSQLiteChanges, capSQLiteValues } from '@capacitor-community/sqlite';
+import { CapacitorSQLite, capSQLiteChanges } from '@capacitor-community/sqlite';
 import { Device } from '@capacitor/device';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
@@ -23,7 +23,7 @@ export class SqliteService {
     this.dbReady = new BehaviorSubject(false);
     this.isWeb = false;
     this.isIOS = false;
-    this.dbName = 'languages.db';
+    this.dbName = 'mascotin.db';
   }
 
   async init() {
@@ -98,7 +98,6 @@ export class SqliteService {
     }).catch(err => Promise.reject(err))
 
   }
-  
 
   async createDatabase() {
       console.error("createDatabase")
@@ -135,111 +134,4 @@ export class SqliteService {
     }
     return this.dbName;
   }
-
-  async create(language: string) {
-    // Sentencia para insertar un registro
-    let sql = 'INSERT INTO languages VALUES(?)';
-    // Obtengo la base de datos
-    const dbName = await this.getDbName();
-    // Ejecutamos la sentencia
-    return CapacitorSQLite.executeSet({
-      database: dbName,
-      set: [
-        {
-          statement: sql,
-          values: [
-            language
-          ]
-        }
-      ]
-    }).then((changes: capSQLiteChanges) => {
-      // Si es web, debemos guardar el cambio en la webstore manualmente
-      if (this.isWeb) {
-        CapacitorSQLite.saveToStore({ database: dbName });
-      }
-      return changes;
-    }).catch(err => Promise.reject(err))
-  }
-
-  async read() {
-    console.log("SqliteService read");
-    // Sentencia para leer todos los registros
-    let sql = 'SELECT * FROM languages';
-    // Obtengo la base de datos
-    const dbName = await this.getDbName();
-    // Ejecutamos la sentencia
-    return CapacitorSQLite.query({
-      database: dbName,
-      statement: sql,
-      values: [] // necesario para android
-    }).then((response: capSQLiteValues) => {
-      let languages: string[] = [];
-
-      // Si es IOS y hay datos, elimino la primera fila
-      // Esto se debe a que la primera fila es informacion de las tablas
-      if (this.isIOS && response.values.length > 0) {
-        response.values.shift();
-      }
-
-      // recorremos los datos
-      for (let index = 0; index < response.values.length; index++) {
-        const language = response.values[index];
-        languages.push(language.name);
-      }
-      return languages;
-
-    }).catch(err => Promise.reject(err))
-  }
-
-  async update(newLanguage: string, originalLanguage: string) {
-    // Sentencia para actualizar un registro
-    let sql = 'UPDATE languages SET name=? WHERE name=?';
-    // Obtengo la base de datos
-    const dbName = await this.getDbName();
-    // Ejecutamos la sentencia
-    return CapacitorSQLite.executeSet({
-      database: dbName,
-      set: [
-        {
-          statement: sql,
-          values: [
-            newLanguage,
-            originalLanguage
-          ]
-        }
-      ]
-    }).then((changes: capSQLiteChanges) => {
-      // Si es web, debemos guardar el cambio en la webstore manualmente
-      if (this.isWeb) {
-        CapacitorSQLite.saveToStore({ database: dbName });
-      }
-      return changes;
-    }).catch(err => Promise.reject(err))
-  }
-
-  async delete(language: string) {
-    // Sentencia para eliminar un registro
-    let sql = 'DELETE FROM languages WHERE name=?';
-    // Obtengo la base de datos
-    const dbName = await this.getDbName();
-    // Ejecutamos la sentencia
-    return CapacitorSQLite.executeSet({
-      database: dbName,
-      set: [
-        {
-          statement: sql,
-          values: [
-            language
-          ]
-        }
-      ]
-    }).then((changes: capSQLiteChanges) => {
-      // Si es web, debemos guardar el cambio en la webstore manualmente
-      if (this.isWeb) {
-        CapacitorSQLite.saveToStore({ database: dbName });
-      }
-      return changes;
-    }).catch(err => Promise.reject(err))
-  }
-
 }
