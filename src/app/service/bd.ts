@@ -64,5 +64,33 @@ export class BDService {
       return [];
     }
   }
+
+  async eliminarUsuario(id: number): Promise<string> {
+    try {
+      const res = await CapacitorSQLite.executeSet({
+        database: this.sqlite.dbName,
+        set: [
+          {
+            statement: 'DELETE FROM tbl_Articulo WHERE Id_Usuario = ?;',
+            values: [id]
+          },
+          {
+            statement: 'DELETE FROM tbl_Usuario WHERE Id = ?;',
+            values: [id]
+          }
+        ]
+      });
+  
+      if (res.changes && res.changes.changes > 0) {
+        return 'Usuario y sus artículos eliminados exitosamente';
+      } else {
+        return 'No se encontró el usuario o no se pudo eliminar';
+      }
+    } catch (error) {
+      console.error('Error al eliminar el usuario y sus artículos:', error);
+      throw error;
+    }
+  }
+  
   
 }

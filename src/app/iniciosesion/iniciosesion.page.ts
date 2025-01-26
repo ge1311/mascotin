@@ -23,8 +23,8 @@ export class InicioSesionPage implements OnInit {
     private alertController: AlertController,
   ) {
     this.loginForm = this.formBuilder.group({
-      usuario: ['Usuario123', [Validators.required, Validators.minLength(3)]],
-      contrasena: ['Clave123', [Validators.required, Validators.minLength(6)]],
+      usuario: ['', [Validators.required, Validators.minLength(3)]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 

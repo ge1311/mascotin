@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { BDService } from '../service/bd'; // Asegúrate de importar el servicio desde la ruta correcta
 import { SqliteService } from '../service/sqlite.service';
 
@@ -11,7 +12,9 @@ import { SqliteService } from '../service/sqlite.service';
 export class AdminPage  {
   usuarios: any[] = [];  // Array para almacenar los usuarios
 
-  constructor(private bdService: BDService, private sqlite: SqliteService) {}
+  constructor(private bdService: BDService, 
+              private sqlite: SqliteService,
+              private alertController: AlertController) {}
 
   ionViewWillEnter(){
     console.log("AdminPage ionViewWillEnter");
@@ -31,6 +34,33 @@ export class AdminPage  {
     }).catch((error: Error) => {
       console.error('Error al cargar los usuarios:', error);
     });
-    
   }
+
+  async eliminarUsuario(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: 'Eliminarás todos los posts asociados a este usuario. ¿Deseas continuar?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Eliminación cancelada');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            const mensaje = await this.bdService.eliminarUsuario(id);
+            console.log(mensaje);
+            this.cargarUsuarios();  // Recargar la lista de usuarios después de eliminar
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+  
+  
 }
